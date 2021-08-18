@@ -22,6 +22,14 @@ class _State extends State<MyApp> {
     });
   }
 
+  int index = 0;
+
+  void removeItemFromList(int index) {
+    setState(() {
+      names.removeAt(index);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -51,12 +59,24 @@ class _State extends State<MyApp> {
                   itemCount: names.length,
                   itemBuilder: (BuildContext context, int index) {
                     return Container(
-                      child: Center(
-                          child: Text(
-                        '${names[index]} ',
-                        style: TextStyle(fontSize: 18),
-                      )),
-                    );
+                        child: new Column(
+                      children: [
+                        new Container(
+                          child: Center(
+                            child: Text(
+                              '${names[index]} ',
+                              style: TextStyle(fontSize: 18),
+                            ),
+                          ),
+                        ),
+                        new Container(
+                            child: ElevatedButton(
+                                child: Icon(Icons.delete),
+                                onPressed: () {
+                                  removeItemFromList(index);
+                                }))
+                      ],
+                    ));
                   }))
         ]));
   }
